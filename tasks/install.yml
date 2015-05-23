@@ -1,0 +1,18 @@
+---
+- name: Barman | Add PostgreSQL repository apt-key
+  apt_key:
+    id: "{{ postgresql_apt_key_id }}"
+    url: "{{ postgresql_apt_key_url }}"
+    state: present
+  when: postgresql_apt_key_url and postgresql_apt_key_id
+
+- name: Barman | Add PostgreSQL repository
+  apt_repository:
+    repo: "{{ postgresql_apt_repository }}"
+    state: present
+  when: postgresql_apt_repository
+
+- name: Barman | Install Barman
+  apt:
+    name: "barman"
+    state: "present"

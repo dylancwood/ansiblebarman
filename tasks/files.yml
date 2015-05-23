@@ -1,0 +1,10 @@
+- name: Barman | Ensure barman home directory exists
+  file: 
+    path: "{{barman_home}}"
+    state: directory
+    owner: "{{barman_user}}"
+    group: "{{barman_group}}"
+    mode: 0700
+    state: directory
+  sudo: yes
+  sudo_user: '{{barman_home_creation_user}}'

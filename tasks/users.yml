@@ -1,0 +1,53 @@
+---
+- name: Barman | Add barman user group
+  group: 
+    name: '{{barman_group}}'
+    gid: '{{barman_uid}}'
+
+- name: Barman | Add barman user
+  user: 
+    name: '{{barman_user}}'
+    uid: '{{barman_uid}}'
+    groups: '{{barman_groups}}'
+    group: '{{barman_group}}'
+
+- name: Barman | Create .ssh directory for barman user
+  file:
+    path: /home/{{barman_user}}/.ssh
+    group: '{{barman_user}}'
+    owner: '{{barman_group}}'
+    mode: 0700
+    state: directory
+
+- name: Barman | Add barman id_rsa
+  copy:
+    src: '{{barman_ssh_private_key_path}}'
+    dest: /home/{{barman_user}}/.ssh/id_rsa 
+    owner: '{{barman_user}}'
+    group: '{{barman_group}}'
+    mode: 0600
+  when: barman_ssh_private_key_path
+
+- name: Barman | Add barman id_rsa.pub
+  copy:
+    src: '{{barman_ssh_public_key_path}}'
+    dest: /home/{{barman_user}}/.ssh/id_rsa.pub
+    owner: '{{barman_user}}'
+    group: '{{barman_group}}'
+    mode: 0644
+  when: barman_ssh_public_key_path
+
+- name: Barman | Add barman authorized_key
+  authorized_key:
+    key: "{{ lookup('file', {{barman_ssh_authorized_key_path}}) }}"
+    user: '{{barman_user}}'
+  when: barman_ssh_authorized_key_path
+
+- name: Barman | Add .pgpass file
+  copy:
+    content: '{{barman_pg_pass_content}}'
+    dest: /home/{{barman_user}}/.pgpass
+    group: '{{barman_user}}'
+    owner: '{{barman_user}}'
+    mode: 0700
+  when: barman_pg_pass_content

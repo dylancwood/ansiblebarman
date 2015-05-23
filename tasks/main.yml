@@ -1,2 +1,10 @@
 ---
-# tasks file for ansible-barman
+- include: users.yml
+  sudo: yes
+- include: install.yml
+  sudo: yes
+- include: configure.yml
+  sudo: yes
+- include: files.yml
+- include: cron.yml
+  sudo: yes

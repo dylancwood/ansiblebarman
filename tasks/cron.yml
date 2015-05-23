@@ -1,0 +1,16 @@
+---
+- name: Barman | Remove server backups from cron.d/barman
+  lineinfile: 
+    dest: /etc/cron.d/barman
+    regexp: "{{item.name}}"
+    state: absent
+  when: item.backup_cron_interval is not defined or item.backup_cron_interval == False
+  with_items: barman_upstreams
+
+- name: Barman | Add server backups to cron.d/barman
+  lineinfile: 
+    dest: /etc/cron.d/barman
+    line: "{{item.backup_cron_interval}} barman [ -x /usr/bin/barman ] && /usr/bin/barman backup {{item.name}} #Added by ansible"
+    regexp: "{{item.name}}"
+  when: item.backup_cron_interval is defined and item.backup_cron_interval
+  with_items: barman_upstreams

@@ -1,2 +1,47 @@
----
-# defaults file for ansible-barman
+barman_home: /var/lib/barman
+# This user will be used to create the barman_home dir if it doesn't exist
+barman_home_creation_user: root
+barman_user: barman
+barman_uid: 
+barman_groups: "{{barman_user}}"
+barman_group: "{{barman_user}}"
+barman_ssh_private_key_path:
+barman_ssh_public_key_path:
+barman_ssh_authorized_key_path:
+barman_pg_pass_content:
+barman_log_file: /var/log/barman/barman.log
+barman_compression: None
+barman_reuse_backup: 'off'
+barman_pre_backup_script: env | grep ^BARMAN
+barman_post_backup_script: env | grep ^BARMAN
+barman_pre_archive_script: env | grep ^BARMAN
+barman_post_archive_script: env | grep ^BARMAN
+barman_configuration_file_path: /etc/barman.conf
+barman_configuration_files_directory: /etc/barman.d
+barman_minimum_redundancy: 0
+barman_retention_policy: ""
+barman_bandwidth_limit: 0
+barman_immediate_checkpoint: false
+barman_network_compression: false
+barman_backup_options: exclusive_backup
+barman_basebackup_retry_times: 0
+barman_basebackup_retry_sleep: 30
+barman_last_backup_maximum_age: ""
+barman_upstreams: []
+# Example barman upstream (default values used)
+# barman_upstreams: 
+#   - name: main
+#     description: 'Main PG server'
+#     hostname: prod_db.example.com
+#     postgres_user: postgres
+#     dbname: postgres
+#     port: 5432
+#     retention_policy: 'REDUNDANCY 2'
+#     minimum_redundancy: 1
+#     backup_cron_interval: '0 0 * * *'
+#
+
+# APT settings
+postgresql_apt_key_id: ACCC4CF8
+postgresql_apt_key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+postgresql_apt_repository: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ansible_distribution_release}}-pgdg main'
