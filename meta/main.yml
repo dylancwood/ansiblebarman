@@ -69,7 +69,7 @@ galaxy_info:
   #  - 9.1
   #  - 9.1
   #  - 9.2
-   - name: Ubuntu
+    - name: Ubuntu
   #  versions:
   #  - all
   #  - lucid
@@ -78,9 +78,9 @@ galaxy_info:
   #  - oneiric
   #  - precise
   #  - quantal
-     - raring
-     - saucy
-     - trusty
+      - raring
+      - saucy
+      - trusty
   #- name: SLES
   #  versions:
   #  - all
@@ -94,31 +94,31 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-   - name: Debian
+    - name: Debian
   #  versions:
   #  - all
   #  - etch
   #  - lenny
   #  - squeeze
-     - wheezy
+      - wheezy
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
   #- cloud:rax
   #- clustering
-  - database
+    - database
   #- database:nosql
-  - database:sql
+    - database:sql
   #- development
   #- monitoring
   #- networking
   #- packaging
-  - system
+    - system
   #- web
 dependencies: []
   # List your role dependencies here, one per line. Only
