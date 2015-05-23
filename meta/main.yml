@@ -70,7 +70,7 @@ galaxy_info:
   #  - 9.1
   #  - 9.2
     - name: Ubuntu
-  #  versions:
+      versions:
   #  - all
   #  - lucid
   #  - maverick
@@ -78,9 +78,9 @@ galaxy_info:
   #  - oneiric
   #  - precise
   #  - quantal
-      - raring
-      - saucy
-      - trusty
+        - raring
+        - saucy
+        - trusty
   #- name: SLES
   #  versions:
   #  - all
@@ -95,12 +95,12 @@ galaxy_info:
   #  - all
   #  - any
     - name: Debian
-  #  versions:
+      versions:
   #  - all
   #  - etch
   #  - lenny
   #  - squeeze
-      - wheezy
+        - wheezy
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
