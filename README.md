@@ -1,4 +1,4 @@
-Role Name
+Ansible-Barman
 =========
 
 This role installs and configures PG Barman (http://www.pgbarman.org/) from the postgresql apt repo. This role will not work with non-Debian Linux distros, as it relies on `apt-get`.
