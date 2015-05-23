@@ -65,7 +65,7 @@ I then reference that variable in my role-specific variable definitions (e.g. `g
 ```yml
 postgresql_wal_level: archive # minimal, archive, hot_standby, or logical
 postgresql_archive_mode: on
-postgresql_archive_command: 'rsync -a %p barman@{{barman_hostname}}:{{barman_home}}/{{ansible_hostname}}/wal/%f'
+postgresql_archive_command: 'rsync -a %p barman@{{barman_hostname}}:{{barman_home}}/{{ansible_hostname}}/incoming/%f'
 ```
 
 ## Working with NFS storage
