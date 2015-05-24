@@ -74,7 +74,7 @@ I ran into the following error while getting things working:
 
 To resolve this, I needed to use local flock locks on my network storage:
 ```
-mount /path/to/dir host:/path/to/dir -t nfs -o 'local_locks=flock'
+mount /path/to/dir host:/path/to/dir -t nfs -o 'local_lock=flock'
 ```
 
 Example Playbook
