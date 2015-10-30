@@ -2,12 +2,12 @@ barman_home: /var/lib/barman
 # This user will be used to create the barman_home dir if it doesn't exist
 barman_home_creation_user: root
 barman_user: barman
-barman_uid: 
+barman_uid:
 barman_groups: "{{barman_user}}"
 barman_group: "{{barman_user}}"
-barman_ssh_private_key_path:
-barman_ssh_public_key_path:
-barman_ssh_authorized_key_path:
+barman_ssh_private_key:
+barman_ssh_public_key:
+barman_ssh_authorized_keys: #list of strings
 barman_pg_pass_content:
 barman_log_file: /var/log/barman/barman.log
 barman_compression: None
@@ -21,7 +21,7 @@ barman_configuration_files_directory: /etc/barman.d
 barman_minimum_redundancy: 0
 barman_retention_policy: ""
 barman_bandwidth_limit: 0
-barman_immediate_checkpoint: false
+barman_imm  ediate_checkpoint: false
 barman_network_compression: false
 barman_backup_options: exclusive_backup
 barman_basebackup_retry_times: 0
@@ -29,7 +29,7 @@ barman_basebackup_retry_sleep: 30
 barman_last_backup_maximum_age: ""
 barman_upstreams: []
 # Example barman upstream (default values used)
-# barman_upstreams: 
+# barman_upstreams:
 #   - name: main
 #     description: 'Main PG server'
 #     hostname: prod_db.example.com

@@ -23,11 +23,11 @@ Here is a list of tricky variables with a detailed description:
 
 * **barman_group** is the primary group name to be assigned to the `barman_user` (optional)`
 
-* **barman_ssh_private_key_path** is the pathname to a file containing the private ssh key to be installed for the barman user. (optional)
+* **barman_ssh_private_key** is the private ssh key to be installed for the barman user. (optional)
 
-* **barman_ssh_public_key_path** is the pathname to a file containing the public ssh key to be installed for the barman user. (optional)
+* **barman_ssh_public_key_path** is the public ssh key to be installed for the barman user. (optional)
 
-* **barman_ssh_authorized_key_path** is the pathname to a file containing the public ssh key to be used by the postgres instance when syncing WAL archives via rsync. This will be appended to the `authorized_keys` file if it exists. (optional)
+* **barman_ssh_authorized_key_path** is a list of public ssh keys to be used by the postgres instance when syncing WAL archives via rsync. Each key will be appended to the `authorized_keys` file if it exists. (optional)
 
 * **barman_upstreams** is a list of upstream server specifications. Here is an annotated example:
 ``` yml
@@ -43,7 +43,7 @@ barman_upstreams:
     backup_cron_interval: '0 0 * * 0' #optional will not run automatic backups if not specified
 ```
 
-* **barman_pg_pass_content** is the content that should be inserted into the `barman_user`'s .pgpass file. This is the safest way to use md5 or password authentication when connecting to the upstream postgres servers. Look at https://wiki.postgresql.org/wiki/Pgpass for more info. Example: 
+* **barman_pg_pass_content** is the content that should be inserted into the `barman_user`'s .pgpass file. This is the safest way to use md5 or password authentication when connecting to the upstream postgres servers. Look at https://wiki.postgresql.org/wiki/Pgpass for more info. Example:
 ```yml
 barman_pg_pass_content: "*:*:*:barman_bot:{{ lookup('file', '/path/to/file/containing/password.pwd') }}"
 ```
@@ -84,13 +84,15 @@ Example Playbook
 - hosts: servers
   roles:
      - role: dylancwood.ansible-barman
-  vars: 
-    barman_ssh_private_key_path: "~/.ssh/id_rsa.postgres"
-    barman_ssh_public_key_path: "~/.ssh/id_rsa.postgres.pub"
-    barman_ssh_authorized_keys_path: "~/.ssh/id_rsa.postgres.pub" 
+  vars:
+    barman_ssh_private_key: "..."
+    barman_ssh_public_key: "{{ lookup('file', 'path/to/key.pub') }}"
+    barman_ssh_authorized_keys:
+      - "{{ lookup('file', 'path/to/key.pub') }}"
+      - "{{ lookup('file', 'path/to/key2.pub') }}"
     barman_pg_pass_content: "*:*:*:barman_bot:{{ lookup('file', '/secret/path/to/barman_bot.pwd') }}"
-    barman_backup_options: concurrent_backup 
-    barman_upstreams: 
+    barman_backup_options: concurrent_backup
+    barman_upstreams:
       - name: 'productiondb'
         description: 'Production Database: be careful'
         hostname: 'productiondb.example.com'
@@ -101,7 +103,7 @@ Example Playbook
 ```
 
 Note that the `postgres_user` matches the username section of the `barman_pg_pass_content` var.
-         
+
 
 License
 -------
@@ -112,4 +114,3 @@ Author Information
 ------------------
 
 Feel free to reach out via Github Issues or Pull Requests
-

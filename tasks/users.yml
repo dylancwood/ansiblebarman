@@ -1,11 +1,11 @@
 ---
 - name: Barman | Add barman user group
-  group: 
+  group:
     name: '{{barman_group}}'
     gid: '{{barman_uid}}'
 
 - name: Barman | Add barman user
-  user: 
+  user:
     name: '{{barman_user}}'
     uid: '{{barman_uid}}'
     groups: '{{barman_groups}}'
@@ -21,27 +21,28 @@
 
 - name: Barman | Add barman id_rsa
   copy:
-    src: '{{barman_ssh_private_key_path}}'
-    dest: /home/{{barman_user}}/.ssh/id_rsa 
+    content: '{{ barman_ssh_private_key }}'
+    dest: /home/{{barman_user}}/.ssh/id_rsa
     owner: '{{barman_user}}'
     group: '{{barman_group}}'
     mode: 0600
-  when: barman_ssh_private_key_path
+  when: barman_ssh_private_key
 
 - name: Barman | Add barman id_rsa.pub
   copy:
-    src: '{{barman_ssh_public_key_path}}'
+    content: '{{ barman_ssh_public_key }}'
     dest: /home/{{barman_user}}/.ssh/id_rsa.pub
     owner: '{{barman_user}}'
     group: '{{barman_group}}'
     mode: 0644
-  when: barman_ssh_public_key_path
+  when: barman_ssh_public_key
 
 - name: Barman | Add barman authorized_key
   authorized_key:
-    key: "{{ lookup('file', {{barman_ssh_authorized_key_path}}) }}"
+    key: "{{ item }}"
     user: '{{barman_user}}'
-  when: barman_ssh_authorized_key_path
+  when: barman_ssh_authorized_keys
+  with_items: barman_ssh_authorized_keys
 
 - name: Barman | Add .pgpass file
   copy:
